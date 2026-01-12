@@ -9,16 +9,20 @@ import {
   X,
   MapPin,
   Users,
+  Stethoscope,
+  ShieldCheck,
+  TreePine,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Separator } from "@/components/ui/separator";
 
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const navItems = [
+const campusNavItems = [
   { icon: Home, label: "Dashboard", path: "/" },
   { icon: Calendar, label: "Events", path: "/events" },
   { icon: BookOpen, label: "Room Booking", path: "/rooms" },
@@ -26,6 +30,15 @@ const navItems = [
   { icon: MapPin, label: "Campus Map", path: "/map" },
   { icon: Users, label: "Clubs", path: "/clubs" },
   { icon: Shield, label: "Safety", path: "/safety" },
+];
+
+const moduleNavItems = [
+  { icon: Stethoscope, label: "Healthcare", path: "/healthcare" },
+  { icon: ShieldCheck, label: "Safety Guardian", path: "/safety-guardian" },
+  { icon: TreePine, label: "Tree Care", path: "/tree-care" },
+];
+
+const settingsNavItems = [
   { icon: Settings, label: "Settings", path: "/settings" },
 ];
 
@@ -61,8 +74,56 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           </Button>
         </div>
 
-        <nav className="flex-1 space-y-1 p-4">
-          {navItems.map((item) => (
+        <nav className="flex-1 space-y-1 overflow-y-auto p-4">
+          <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-sidebar-foreground/50">
+            Campus
+          </p>
+          {campusNavItems.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              onClick={onClose}
+              className={({ isActive }) =>
+                cn(
+                  "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                  isActive
+                    ? "bg-sidebar-primary text-sidebar-primary-foreground"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                )
+              }
+            >
+              <item.icon className="h-5 w-5" />
+              {item.label}
+            </NavLink>
+          ))}
+
+          <Separator className="my-4" />
+
+          <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-sidebar-foreground/50">
+            Solutions
+          </p>
+          {moduleNavItems.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              onClick={onClose}
+              className={({ isActive }) =>
+                cn(
+                  "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                  isActive
+                    ? "bg-sidebar-primary text-sidebar-primary-foreground"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                )
+              }
+            >
+              <item.icon className="h-5 w-5" />
+              {item.label}
+            </NavLink>
+          ))}
+
+          <Separator className="my-4" />
+
+          {settingsNavItems.map((item) => (
             <NavLink
               key={item.path}
               to={item.path}
